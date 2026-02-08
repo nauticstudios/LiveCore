@@ -1,0 +1,7 @@
+{
+  "id": "livecore",
+  "name": "LiveCore",
+  "version": "1.0.0",
+  "main": "com.github.nautic.velocity.LiveCoreVelocityPlugin",
+  "authors": ["Senkex"]
+}
