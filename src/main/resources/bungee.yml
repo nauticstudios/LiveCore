@@ -1,0 +1,10 @@
+#                                                            Developed by Senkex
+#                                                        (Nautic Studios @ (C) 2026)
+
+name: LiveCore
+version: 1.0.0
+
+author: 'Senkex'
+
+website: "https://github.com/nauticstudios/LiveCore"
+main: com.github.nautic.bungeecord.LiveCoreBungeePlugin
