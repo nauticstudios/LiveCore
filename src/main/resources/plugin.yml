@@ -1,0 +1,15 @@
+#                                                            Developed by Senkex
+#                                                        (Nautic Studios @ (C) 2026)
+
+name: LiveCore
+version: 1.0.0
+author: 'Senkex'
+
+api-version: 1.16
+
+main: com.github.nautic.spigot.LiveCoreSpigotPlugin
+website: "https://github.com/nauticstudios/LiveCore"
+
+
+softdepend:
+  - PlaceholderAPI
