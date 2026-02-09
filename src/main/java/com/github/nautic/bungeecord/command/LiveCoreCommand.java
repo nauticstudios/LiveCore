@@ -25,15 +25,11 @@ public class LiveCoreCommand extends Command {
             ));
 
             sender.sendMessage(addColorBungee.Set(
-                    "     &#FF3B3B&l LiveCore &#CDCDCD| &fVersion: &#38FF35"
-            ) + plugin.getDescription().getVersion());
-
-            sender.sendMessage(addColorBungee.Set(
-                    "     &fMode: &bBungeeCord"
+                    "          &#FF2525&lLiveCore &fv1.0.0 &7(Bungee)"
             ));
 
             sender.sendMessage(addColorBungee.Set(
-                    "       &fPowered by &#3F92FFNautic Studios"
+                    "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"
             ));
 
             sender.sendMessage(addColorBungee.Set(

@@ -1,5 +1,6 @@
 package com.github.nautic.velocity.command;
 
+import com.github.nautic.bungeecord.utils.addColorBungee;
 import com.github.nautic.velocity.LiveCoreVelocityPlugin;
 import com.github.nautic.velocity.utils.YamlUtil;
 import com.github.nautic.velocity.utils.addColorVelocity;
@@ -25,17 +26,21 @@ public class LiveCoreCommand implements SimpleCommand {
 
         if (args.length == 0) {
 
-            sender.sendMessage(addColorVelocity.Set("&r"));
-
             sender.sendMessage(addColorVelocity.Set(
-                    "     &#FF3B3B&lLiveCore &#CDCDCD| &fVersion: &#38FF351.0.0"
-            ));
-            sender.sendMessage(addColorVelocity.Set("     &fMode: &bVelocity"));
-            sender.sendMessage(addColorVelocity.Set(
-                    "       &fPowered by &#3F92FFNautic Studios"
+                    "&r"
             ));
 
-            sender.sendMessage(addColorVelocity.Set("&r"));
+            sender.sendMessage(addColorVelocity.Set(
+                    "          &#FF2525&lLiveCore &fv1.0.0 &7(Velocity)"
+            ));
+
+            sender.sendMessage(addColorVelocity.Set(
+                    "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"
+            ));
+
+            sender.sendMessage(addColorVelocity.Set(
+                    "&r"
+            ));
             return;
         }
 

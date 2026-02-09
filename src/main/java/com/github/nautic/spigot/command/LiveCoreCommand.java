@@ -1,5 +1,6 @@
 package com.github.nautic.spigot.command;
 
+import com.github.nautic.bungeecord.utils.addColorBungee;
 import com.github.nautic.core.utils.addColor;
 import com.github.nautic.spigot.LiveCoreSpigotPlugin;
 import org.bukkit.command.Command;
@@ -25,15 +26,11 @@ public class LiveCoreCommand implements CommandExecutor {
             ));
 
             sender.sendMessage(addColor.Set(
-                    "     &#FF3B3B&lLiveCore &#CDCDCD| &fVersion: &#38FF35"
-            ) + plugin.getDescription().getVersion());
-
-            sender.sendMessage(addColor.Set(
-                    "     &fMode: &bSpigot"
+                    "          &#FF2525&lLiveCore &fv1.0.0 &7(Spigot)"
             ));
 
             sender.sendMessage(addColor.Set(
-                    "       &fPowered by &#3F92FFNautic Studios"
+                    "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"
             ));
 
             sender.sendMessage(addColor.Set(
