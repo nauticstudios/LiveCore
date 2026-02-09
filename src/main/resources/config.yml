@@ -1,0 +1,39 @@
+# General plugin permissions
+permissions:
+  # Allows bypassing platform cooldowns
+  bypass-cooldown: "livecore.bypass"
+
+commands:
+  # Base permission required to use the command
+  permission: "livecore.use"
+
+  # These are NOT /livecore
+  # They are used like:
+  # /<command> <url>
+  #
+  # Example:
+  # /live https://twitch.tv/ssenkex
+
+  aliases:
+    - "live"
+    - "stream"
+    - "directo"
+    - "envivo"
+
+platforms:
+  # Available platforms for /<command> <url>
+  # The platform is detected by the URL domain
+  kick:
+    domain: "kick.com"            # Required URL domain
+    permission: "livecore.kick"   # Permission to use Kick
+    cooldown: 120                 # Cooldown in seconds
+
+  twitch:
+    domain: "twitch.tv"
+    permission: "livecore.twitch"
+    cooldown: 60
+
+  youtube:
+    domain: "youtube.com"
+    permission: "livecore.youtube"
+    cooldown: 300

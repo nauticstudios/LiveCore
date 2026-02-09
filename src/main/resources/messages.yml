@@ -1,0 +1,147 @@
+# BUTTON CONFIGURATION
+# These buttons are interactive chat components displayed when a player goes live.
+#
+# Rules:
+# - Each button key MUST match a platform defined in config.yml (platforms section)
+# - Buttons are referenced in messages using:
+#     %button_<platform>%
+# - %url% is automatically replaced with the URL provided by the player
+#
+# If a platform has no button defined, the broadcast may fail or show nothing.
+buttons:
+  kick:
+    text: "&#38FF35[ WATCH ON KICK ]"
+    hover:
+      - "&#BDBDBDOpen live stream"
+      - "&#38FF35Platform: Kick"
+    click:
+      type: "url"
+      value: "%url%"
+
+  twitch:
+    text: "&#9146FF[ WATCH ON TWITCH ]"
+    hover:
+      - "&#BDBDBDOpen live stream"
+      - "&#9146FFPlatform: Twitch"
+    click:
+      type: "url"
+      value: "%url%"
+
+  youtube:
+    text: "&#FF3B3B[ WATCH ON YOUTUBE ]"
+    hover:
+      - "&#BDBDBDOpen live stream"
+      - "&#FF3B3BPlatform: YouTube"
+    click:
+      type: "url"
+      value: "%url%"
+
+
+# LIVE ADVERTISEMENT / BROADCAST
+# This section controls what happens when a player executes:
+#   /<command> <url>
+#
+# Flow:
+# 1. The platform is detected from the URL domain
+# 2. The matching advertisement section is used
+# 3. Chat message, sound and title are broadcast (if enabled)
+#
+# IMPORTANT:
+# - Each platform here MUST exist in:
+#     platforms (config.yml)
+#     buttons   (above)
+# - %player% is replaced with the player name
+# - %button_<platform>% inserts the configured button
+advertisement:
+  kick:
+    enabled: true
+    broadcast:
+      chat:
+        enabled: true
+        lines:
+          - "<empty>"
+          - "<center>&#38FF35&lKICK</center>"
+          - "<center>&#EAEAEA%player% is &#38FF35LIVE</center>"
+          - "<center>%button_kick%</center>"
+          - "<empty>"
+      sound:
+        enabled: true
+        id: "ENTITY_PLAYER_LEVELUP"
+      title:
+        enabled: true
+        up: "&#38FF35&lKICK"
+        down: "&#EAEAEAPlayer &#38FF35%player% &#EAEAEAis live on &#38FF35&lKICK"
+
+  twitch:
+    enabled: true
+    broadcast:
+      chat:
+        enabled: true
+        lines:
+          - "<empty>"
+          - "<center>&#9146FF&lTWITCH</center>"
+          - "<center>&#EAEAEA%player% is &#9146FFLIVE</center>"
+          - "<center>%button_twitch%</center>"
+          - "<empty>"
+      sound:
+        enabled: true
+        id: "ENTITY_PLAYER_LEVELUP"
+      title:
+        enabled: true
+        up: "&#9146FF&lTWITCH"
+        down: "&#EAEAEAPlayer &#38FF35%player% &#EAEAEAis live on &#9146FF&lTWITCH"
+
+  youtube:
+    enabled: true
+    broadcast:
+      chat:
+        enabled: true
+        lines:
+          - "<empty>"
+          - "<center>&#FF3B3B&lYOUTUBE</center>"
+          - "<center>&#EAEAEA%player% is &#FF3B3BLIVE</center>"
+          - "<center>%button_youtube%</center>"
+          - "<empty>"
+      sound:
+        enabled: true
+        id: "ENTITY_PLAYER_LEVELUP"
+      title:
+        enabled: true
+        up: "&#FF3B3B&lYOUTUBE"
+        down: "&#EAEAEAPlayer &#38FF35%player% &#EAEAEAis live on &#FF3B3B&lYOUTUBE"
+
+syntax:
+  aliases:
+    error:
+      - ""
+      - "   &#FF2525&lLiveCore &#BDBDBD- Syntax"
+      - ""
+      - "   &fCommand: &#FF7E7E/%aliases% %domain%"
+      - ""
+      - "   &a• Platforms: &#EAEAEA%platforms_available%"
+      - "   &#8A8A8A[Invalid platform, see available options]"
+      - ""
+
+messages:
+  help:
+    - ""
+    - "   &#FF2525&lLiveCore &#BDBDBD- Version: &#38FF351.0.0"
+    - ""
+    - "   &#FF8A8A/livecore reload &#BDBDBD- &#EAEAEAReload configuration"
+    - "   &#FF8A8A/livecore platforms &#BDBDBD- &#EAEAEAList platforms"
+    - ""
+    - "   &#FF8A8A/<command> <url> &#BDBDBD- &#EAEAEASend live announcement"
+    - ""
+
+  platforms:
+    - ""
+    - "   &#FF2525&lAvailable Platforms"
+    - ""
+    - "    &#757575[ Platform | Domain | Permission ]"
+    - "    &#EAEAEA• &#FF8F8F%avaible_platforms_name% &#BDBDBD| &#EAEAEA%avaible_platforms_domain% &#BDBDBD| &#9E9E9E(%platforms_permission%)"
+    - ""
+
+  reload: "&#FF2525&lLiveCore &#CDCDCD» &#38FF35Reloaded successfully."
+  no-permission: "&#FF2525&lLiveCore &#CDCDCD» &cYou don't have permission."
+  platforms-no-permission: "&#FF2525&lLiveCore &#CDCDCD» &#BDBDBDYou need permission &#EAEAEA%platform_permission%"
+  cooldown: "&#FF2525&lLiveCore &#CDCDCD» &#FFD369You must wait &#FF8A8A%cooldown%s &#FFD369before using this again."

@@ -63,8 +63,8 @@ public final class LiveCoreVelocityPlugin {
 
         CommandLoader.load(this);
 
-        int pluginId = 29424;
-        metricsFactory.make(this, pluginId);
+        int pluginId = 29435;
+        Metrics metrics = metricsFactory.make(this, pluginId);
 
         LiveCore.start();
 

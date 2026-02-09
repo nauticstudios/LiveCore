@@ -1,0 +1,107 @@
+package com.github.nautic.bungeecord.command;
+
+import com.github.nautic.bungeecord.LiveCoreBungeePlugin;
+import com.github.nautic.bungeecord.utils.addColorBungee;
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.config.Configuration;
+
+public class LiveCoreCommand extends Command {
+
+    private final LiveCoreBungeePlugin plugin;
+
+    public LiveCoreCommand(LiveCoreBungeePlugin plugin) {
+        super("livecore");
+        this.plugin = plugin;
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+
+        if (args.length == 0) {
+
+            sender.sendMessage(addColorBungee.Set(
+                    "&r"
+            ));
+
+            sender.sendMessage(addColorBungee.Set(
+                    "     &#FF3B3B&l LiveCore &#CDCDCD| &fVersion: &#38FF35"
+            ) + plugin.getDescription().getVersion());
+
+            sender.sendMessage(addColorBungee.Set(
+                    "     &fMode: &bBungeeCord"
+            ));
+
+            sender.sendMessage(addColorBungee.Set(
+                    "       &fPowered by &#3F92FFNautic Studios"
+            ));
+
+            sender.sendMessage(addColorBungee.Set(
+                    "&r"
+            ));
+
+            return;
+        }
+
+        if (args[0].equalsIgnoreCase("help")) {
+
+            plugin.messages()
+                    .getStringList("messages.help")
+                    .forEach(l -> sender.sendMessage(addColorBungee.Set(l)));
+
+            return;
+        }
+
+        if (args[0].equalsIgnoreCase("reload")) {
+
+            if (!sender.hasPermission("livecore.admin")) {
+                sender.sendMessage(addColorBungee.Set(
+                        plugin.messages().getString("messages.no-permission")
+                ));
+                return;
+            }
+
+            plugin.reloadConfig();
+            plugin.reloadMessages();
+            CommandLoader.load(plugin);
+
+            sender.sendMessage(addColorBungee.Set(
+                    plugin.messages().getString("messages.reload")
+            ));
+            return;
+        }
+
+        if (args[0].equalsIgnoreCase("platforms")) {
+
+            Configuration platforms =
+                    plugin.getConfig().getSection("platforms");
+            if (platforms == null) return;
+
+            for (String line : plugin.messages().getStringList("messages.platforms")) {
+
+                if (!line.contains("%avaible_platforms_name%")) {
+                    sender.sendMessage(addColorBungee.Set(line));
+                    continue;
+                }
+
+                for (String platformId : platforms.getKeys()) {
+
+                    Configuration platform =
+                            platforms.getSection(platformId);
+                    if (platform == null) continue;
+
+                    String domain =
+                            platform.getString("domain", "unknown");
+                    String perm =
+                            platform.getString("permission", "none");
+
+                    sender.sendMessage(addColorBungee.Set(
+                            line.replace("%avaible_platforms_name%", platformId)
+                                    .replace("%avaible_platforms_domain%", domain)
+                                    .replace("%platforms_permission%", perm)
+                    ));
+                }
+            }
+        }
+    }
+}

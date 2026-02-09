@@ -18,7 +18,7 @@ public final class LiveCoreSpigotPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        int pluginId = 29422;
+        int pluginId = 29436;
         Metrics metrics = new Metrics(this, pluginId);
 
         if (!getDataFolder().exists()) {

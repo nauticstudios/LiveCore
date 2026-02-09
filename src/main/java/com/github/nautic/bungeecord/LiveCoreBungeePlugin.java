@@ -27,7 +27,7 @@ public final class LiveCoreBungeePlugin extends Plugin {
     public void onEnable() {
         instance = this;
 
-        int pluginId = 29423;
+        int pluginId = 29434;
         Metrics metrics = new Metrics(this, pluginId);
 
         if (!getDataFolder().exists()) {
