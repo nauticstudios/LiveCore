@@ -1,6 +1,5 @@
 package com.github.nautic.spigot.command;
 
-import com.github.nautic.bungeecord.utils.addColorBungee;
 import com.github.nautic.core.utils.addColor;
 import com.github.nautic.spigot.LiveCoreSpigotPlugin;
 import org.bukkit.command.Command;
@@ -21,26 +20,28 @@ public class LiveCoreCommand implements CommandExecutor {
 
         if (args.length == 0) {
 
-            sender.sendMessage(addColor.Set(
-                    "&r"
-            ));
-
+            sender.sendMessage(addColor.Set("&r"));
             sender.sendMessage(addColor.Set(
                     "          &#FF2525&lLiveCore &fv1.0.0 &7(Spigot)"
             ));
-
             sender.sendMessage(addColor.Set(
                     "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"
             ));
-
-            sender.sendMessage(addColor.Set(
-                    "&r"
-            ));
+            sender.sendMessage(addColor.Set("&r"));
 
             return true;
         }
 
         if (args[0].equalsIgnoreCase("help")) {
+
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.help")) {
+
+                sender.sendMessage(addColor.Set(
+                        plugin.messages().getString("messages.no-permission")
+                ));
+                return true;
+            }
 
             plugin.messages()
                     .getStringList("messages.help")
@@ -51,7 +52,9 @@ public class LiveCoreCommand implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("reload")) {
 
-            if (!sender.hasPermission("livecore.admin")) {
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.reload")) {
+
                 sender.sendMessage(addColor.Set(
                         plugin.messages().getString("messages.no-permission")
                 ));
@@ -69,6 +72,15 @@ public class LiveCoreCommand implements CommandExecutor {
         }
 
         if (args[0].equalsIgnoreCase("platforms")) {
+
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.platforms")) {
+
+                sender.sendMessage(addColor.Set(
+                        plugin.messages().getString("messages.no-permission")
+                ));
+                return true;
+            }
 
             ConfigurationSection platforms =
                     plugin.getConfig().getConfigurationSection("platforms");

@@ -20,37 +20,39 @@ public class LiveCoreCommand extends Command {
 
         if (args.length == 0) {
 
-            sender.sendMessage(addColorBungee.Set(
-                    "&r"
-            ));
-
+            sender.sendMessage(addColorBungee.Set("&r"));
             sender.sendMessage(addColorBungee.Set(
                     "          &#FF2525&lLiveCore &fv1.0.0 &7(Bungee)"
             ));
-
             sender.sendMessage(addColorBungee.Set(
                     "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"
             ));
-
-            sender.sendMessage(addColorBungee.Set(
-                    "&r"
-            ));
-
+            sender.sendMessage(addColorBungee.Set("&r"));
             return;
         }
 
         if (args[0].equalsIgnoreCase("help")) {
 
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.help")) {
+
+                sender.sendMessage(addColorBungee.Set(
+                        plugin.messages().getString("messages.no-permission")
+                ));
+                return;
+            }
+
             plugin.messages()
                     .getStringList("messages.help")
                     .forEach(l -> sender.sendMessage(addColorBungee.Set(l)));
-
             return;
         }
 
         if (args[0].equalsIgnoreCase("reload")) {
 
-            if (!sender.hasPermission("livecore.admin")) {
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.reload")) {
+
                 sender.sendMessage(addColorBungee.Set(
                         plugin.messages().getString("messages.no-permission")
                 ));
@@ -69,8 +71,16 @@ public class LiveCoreCommand extends Command {
 
         if (args[0].equalsIgnoreCase("platforms")) {
 
-            Configuration platforms =
-                    plugin.getConfig().getSection("platforms");
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.platforms")) {
+
+                sender.sendMessage(addColorBungee.Set(
+                        plugin.messages().getString("messages.no-permission")
+                ));
+                return;
+            }
+
+            Configuration platforms = plugin.getConfig().getSection("platforms");
             if (platforms == null) return;
 
             for (String line : plugin.messages().getStringList("messages.platforms")) {
@@ -82,14 +92,11 @@ public class LiveCoreCommand extends Command {
 
                 for (String platformId : platforms.getKeys()) {
 
-                    Configuration platform =
-                            platforms.getSection(platformId);
+                    Configuration platform = platforms.getSection(platformId);
                     if (platform == null) continue;
 
-                    String domain =
-                            platform.getString("domain", "unknown");
-                    String perm =
-                            platform.getString("permission", "none");
+                    String domain = platform.getString("domain", "unknown");
+                    String perm = platform.getString("permission", "none");
 
                     sender.sendMessage(addColorBungee.Set(
                             line.replace("%avaible_platforms_name%", platformId)

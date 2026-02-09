@@ -1,6 +1,5 @@
 package com.github.nautic.velocity.command;
 
-import com.github.nautic.bungeecord.utils.addColorBungee;
 import com.github.nautic.velocity.LiveCoreVelocityPlugin;
 import com.github.nautic.velocity.utils.YamlUtil;
 import com.github.nautic.velocity.utils.addColorVelocity;
@@ -26,21 +25,14 @@ public class LiveCoreCommand implements SimpleCommand {
 
         if (args.length == 0) {
 
-            sender.sendMessage(addColorVelocity.Set(
-                    "&r"
-            ));
-
+            sender.sendMessage(addColorVelocity.Set("&r"));
             sender.sendMessage(addColorVelocity.Set(
                     "          &#FF2525&lLiveCore &fv1.0.0 &7(Velocity)"
             ));
-
             sender.sendMessage(addColorVelocity.Set(
                     "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"
             ));
-
-            sender.sendMessage(addColorVelocity.Set(
-                    "&r"
-            ));
+            sender.sendMessage(addColorVelocity.Set("&r"));
             return;
         }
 
@@ -48,6 +40,17 @@ public class LiveCoreCommand implements SimpleCommand {
                 YamlUtil.getSection(plugin.messages(), "messages");
 
         if (args[0].equalsIgnoreCase("help")) {
+
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.help")) {
+
+                sender.sendMessage(addColorVelocity.Set(
+                        messages != null
+                                ? YamlUtil.getString(messages, "no-permission")
+                                : "&cNo permission"
+                ));
+                return;
+            }
 
             List<String> help =
                     messages != null
@@ -64,7 +67,9 @@ public class LiveCoreCommand implements SimpleCommand {
 
         if (args[0].equalsIgnoreCase("reload")) {
 
-            if (!sender.hasPermission("livecore.admin")) {
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.reload")) {
+
                 sender.sendMessage(addColorVelocity.Set(
                         messages != null
                                 ? YamlUtil.getString(messages, "no-permission")
@@ -86,6 +91,17 @@ public class LiveCoreCommand implements SimpleCommand {
         }
 
         if (args[0].equalsIgnoreCase("platforms")) {
+
+            if (!sender.hasPermission("livecore.admin")
+                    || !sender.hasPermission("livecore.platforms")) {
+
+                sender.sendMessage(addColorVelocity.Set(
+                        messages != null
+                                ? YamlUtil.getString(messages, "no-permission")
+                                : "&cNo permission"
+                ));
+                return;
+            }
 
             Map<String, Object> platforms =
                     YamlUtil.getSection(plugin.getConfig(), "platforms");
@@ -110,10 +126,8 @@ public class LiveCoreCommand implements SimpleCommand {
                             YamlUtil.getSection(platforms, id);
                     if (p == null) continue;
 
-                    String domain =
-                            YamlUtil.getString(p, "domain");
-                    String perm =
-                            YamlUtil.getString(p, "permission");
+                    String domain = YamlUtil.getString(p, "domain");
+                    String perm = YamlUtil.getString(p, "permission");
 
                     sender.sendMessage(addColorVelocity.Set(
                             line.replace("%avaible_platforms_name%", id)
