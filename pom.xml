@@ -11,10 +11,16 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
+    <name>LiveCore</name>
+
     <properties>
         <java.version>17</java.version>
+
+        <spigot.version>1.20.4-R0.1-SNAPSHOT</spigot.version>
+        <velocity.version>3.4.0-SNAPSHOT</velocity.version>
         <adventure.version>4.21.0</adventure.version>
-        <bstats.version>3.0.2</bstats.version>
+        <bstats.version>3.1.0</bstats.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -23,36 +29,28 @@
             <id>spigotmc</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
+
         <repository>
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/releases/</url>
         </repository>
+
         <repository>
             <id>minecraft-libraries</id>
-            <name>Minecraft Libraries</name>
             <url>https://libraries.minecraft.net/</url>
         </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>2.2</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -64,30 +62,24 @@
         </dependency>
 
         <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>6.0.54</version>
+            <groupId>com.velocitypowered</groupId>
+            <artifactId>velocity-api</artifactId>
+            <version>${velocity.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.cryptomorin</groupId>
             <artifactId>XSeries</artifactId>
             <version>13.6.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.velocitypowered</groupId>
-            <artifactId>velocity-api</artifactId>
-            <version>3.4.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>2.11.7</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -109,6 +101,13 @@
         </dependency>
 
         <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.7</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>${bstats.version}</version>
@@ -118,20 +117,21 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bungeecord</artifactId>
-            <version>3.1.0</version>
+            <version>${bstats.version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-velocity</artifactId>
-            <version>3.1.0</version>
+            <version>${bstats.version}</version>
             <scope>compile</scope>
         </dependency>
 
     </dependencies>
 
     <build>
+        <defaultGoal>clean package</defaultGoal>
 
         <resources>
             <resource>
@@ -141,11 +141,10 @@
         </resources>
 
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -155,7 +154,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.5.3</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -166,23 +165,52 @@
 
                             <createDependencyReducedPom>false</createDependencyReducedPom>
 
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.yaml.snakeyaml</pattern>
-                                    <shadedPattern>com.github.nautic.libs.snakeyaml</shadedPattern>
-                                </relocation>
-                            </relocations>
-
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
+                                        <exclude>META-INF/maven/**</exclude>
+                                        <exclude>META-INF/versions/**</exclude>
+                                        <exclude>META-INF/services/**</exclude>
                                         <exclude>META-INF/*.SF</exclude>
                                         <exclude>META-INF/*.DSA</exclude>
                                         <exclude>META-INF/*.RSA</exclude>
                                     </excludes>
                                 </filter>
                             </filters>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.yaml.snakeyaml</pattern>
+                                    <shadedPattern>com.github.nautic.core.libs.snakeyaml</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>net.kyori</pattern>
+                                    <shadedPattern>com.github.nautic.core.libs.kyori</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>com.github.nautic.core.libs.bstats</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>com.cryptomorin.xseries</pattern>
+                                    <shadedPattern>com.github.nautic.core.libs.xseries</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>org.jetbrains</pattern>
+                                    <shadedPattern>com.github.nautic.core.libs.jetbrains</shadedPattern>
+                                </relocation>
+
+                                <relocation>
+                                    <pattern>org.intellij</pattern>
+                                    <shadedPattern>com.github.nautic.core.libs.intellij</shadedPattern>
+                                </relocation>
+
+                            </relocations>
 
                         </configuration>
                     </execution>
