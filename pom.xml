@@ -186,11 +186,6 @@
                                 </relocation>
 
                                 <relocation>
-                                    <pattern>net.kyori</pattern>
-                                    <shadedPattern>com.github.nautic.core.libs.kyori</shadedPattern>
-                                </relocation>
-
-                                <relocation>
                                     <pattern>org.bstats</pattern>
                                     <shadedPattern>com.github.nautic.core.libs.bstats</shadedPattern>
                                 </relocation>
