@@ -1,5 +1,6 @@
 package com.github.nautic.bungeecord;
 
+import com.github.nautic.bungeecord.command.CommandLoader;
 import com.github.nautic.core.LiveCore;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
@@ -37,6 +38,7 @@ public final class LiveCoreBungeePlugin extends Plugin {
         loadMessagesFile();
 
         LiveCore.start();
+        CommandLoader.load(this);
 
         getLogger().info("LiveCore Bungee enabled successfully.");
     }
