@@ -2,27 +2,44 @@ package com.github.nautic.core;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.BiConsumer;
 
 public final class CoreLogger {
 
     private static final DateTimeFormatter TIME =
             DateTimeFormatter.ofPattern("HH:mm:ss");
 
+    private static BiConsumer<Level, String> logger;
+
+    public enum Level {
+        INFO, WARN, ERROR
+    }
+
     private CoreLogger() {}
 
+    public static void setLogger(BiConsumer<Level, String> logFunction) {
+        logger = logFunction;
+    }
+
     public static void info(String message) {
-        System.out.println(format("INFO", message));
+        log(Level.INFO, message);
     }
 
     public static void warn(String message) {
-        System.out.println(format("WARN", message));
+        log(Level.WARN, message);
     }
 
     public static void error(String message) {
-        System.err.println(format("ERROR", message));
+        log(Level.ERROR, message);
     }
 
-    private static String format(String level, String message) {
-        return "[" + TIME.format(LocalTime.now()) + " | " + level + "] " + message;
+    private static void log(Level level, String message) {
+
+        String formatted = "[" + TIME.format(LocalTime.now())
+                + " | " + level + "] " + message;
+
+        if (logger != null) {
+            logger.accept(level, formatted);
+        }
     }
 }
