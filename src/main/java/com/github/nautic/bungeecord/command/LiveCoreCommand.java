@@ -22,7 +22,7 @@ public class LiveCoreCommand extends Command {
 
             sender.sendMessage(addColorBungee.Set("&r"));
             sender.sendMessage(addColorBungee.Set(
-                    "          &#FF2525&lLiveCore &fv1.0.0 &7(Bungee)"
+                    "          &#FF2525&lLiveCore &fv1.1.0 &7(Bungee)"
             ));
             sender.sendMessage(addColorBungee.Set(
                     "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"

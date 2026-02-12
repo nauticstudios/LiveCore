@@ -27,7 +27,7 @@ public class LiveCoreCommand implements SimpleCommand {
 
             sender.sendMessage(addColorVelocity.Set("&r"));
             sender.sendMessage(addColorVelocity.Set(
-                    "          &#FF2525&lLiveCore &fv1.0.0 &7(Velocity)"
+                    "          &#FF2525&lLiveCore &fv1.1.0 &7(Velocity)"
             ));
             sender.sendMessage(addColorVelocity.Set(
                     "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"

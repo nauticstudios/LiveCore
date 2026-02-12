@@ -8,34 +8,78 @@ import com.github.nautic.bungeecord.LiveCoreBungeecord;
 public final class LiveCore {
 
     private static PlatformAdapter adapter;
+    private static boolean started = false;
+
+    private LiveCore() {}
 
     public static void start() {
+
+        if (started) {
+            CoreLogger.warn("LiveCore is already started. Ignoring duplicate start call.");
+            return;
+        }
 
         CoreLogger.info("Starting LiveCore initialization sequence...");
 
         PlatformType type = PlatformDetector.detect();
 
-        adapter = switch (type) {
-            case SPIGOT -> new LiveCoreSpigot();
-            case VELOCITY -> new LiveCoreVelocity();
-            case BUNGEECORD -> new LiveCoreBungeecord();
-            default -> throw new IllegalStateException("Unsupported platform environment");
-        };
+        if (type == PlatformType.UNKNOWN) {
+            CoreLogger.error("Unsupported platform environment detected. Aborting startup.");
+            return;
+        }
 
-        CoreLogger.info("Loading platform adapter...");
-        adapter.load();
+        try {
 
-        CoreLogger.info("Enabling LiveCore services...");
-        adapter.enable();
+            adapter = switch (type) {
+                case SPIGOT -> new LiveCoreSpigot();
+                case VELOCITY -> new LiveCoreVelocity();
+                case BUNGEECORD -> new LiveCoreBungeecord();
+                default -> throw new IllegalStateException("Unsupported platform environment");
+            };
 
-        CoreLogger.info("LiveCore successfully enabled on " + type);
+            CoreLogger.info("Loading platform adapter...");
+            adapter.load();
+
+            CoreLogger.info("Enabling LiveCore services...");
+            adapter.enable();
+
+            started = true;
+
+            CoreLogger.info("LiveCore successfully enabled on " + type);
+
+        } catch (Exception ex) {
+
+            CoreLogger.error("An error occurred during LiveCore startup: " + ex.getMessage());
+            ex.printStackTrace();
+
+        }
     }
 
     public static void stop() {
-        if (adapter != null) {
+
+        if (!started || adapter == null) {
+            CoreLogger.warn("LiveCore stop() called but it was not started.");
+            return;
+        }
+
+        try {
+
             CoreLogger.info("Shutting down LiveCore...");
             adapter.disable();
+
+            started = false;
+
             CoreLogger.info("LiveCore shutdown complete");
+
+        } catch (Exception ex) {
+
+            CoreLogger.error("An error occurred during LiveCore shutdown: " + ex.getMessage());
+            ex.printStackTrace();
+
         }
+    }
+
+    public static boolean isStarted() {
+        return started;
     }
 }

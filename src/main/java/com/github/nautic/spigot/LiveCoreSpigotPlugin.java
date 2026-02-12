@@ -1,6 +1,8 @@
 package com.github.nautic.spigot;
 
+import com.github.nautic.core.LiveCore;
 import com.github.nautic.spigot.command.CommandLoader;
+import com.github.nautic.spigot.update.spigot.SpigotUpdateListener;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -29,6 +31,9 @@ public final class LiveCoreSpigotPlugin extends JavaPlugin {
         loadMessagesFile();
 
         CommandLoader.load(this);
+        LiveCore.start();
+
+        new SpigotUpdateListener(this, 132482);
 
         getLogger().info("LiveCore enabled successfully.");
     }

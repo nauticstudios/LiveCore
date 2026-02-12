@@ -1,14 +1,17 @@
 package com.github.nautic.spigot.utils;
 
 import com.cryptomorin.xseries.XSound;
-import org.bukkit.Bukkit;
 
 public final class SoundUtil {
 
+    private SoundUtil() {}
+
     public static void playAll(String id) {
-        XSound.matchXSound(id)
-                .ifPresent(sound ->
-                        Bukkit.getOnlinePlayers().forEach(sound::play)
-                );
+
+        if (id == null || id.isEmpty()) return;
+
+        XSound.matchXSound(id).ifPresent(sound ->
+                PlayerUtil.forEachOnline(sound::play)
+        );
     }
 }

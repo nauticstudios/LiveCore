@@ -2,6 +2,7 @@ package com.github.nautic.spigot.command;
 
 import com.github.nautic.core.utils.addColor;
 import com.github.nautic.spigot.LiveCoreSpigotPlugin;
+import com.github.nautic.spigot.utils.ServerPlatformUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +23,8 @@ public class LiveCoreCommand implements CommandExecutor {
 
             sender.sendMessage(addColor.Set("&r"));
             sender.sendMessage(addColor.Set(
-                    "          &#FF2525&lLiveCore &fv1.0.0 &7(Spigot)"
+                    "          &#FF2525&lLiveCore &fv1.1.0 &7("
+                            + ServerPlatformUtil.getPlatformName() + ")"
             ));
             sender.sendMessage(addColor.Set(
                     "     &fPowered by &#3BBFFFSenkex @ Nautic Studios"

@@ -2,6 +2,7 @@ package com.github.nautic.velocity;
 
 import com.github.nautic.core.LiveCore;
 import com.github.nautic.velocity.command.CommandLoader;
+import com.github.nautic.velocity.update.velocity.VelocityUpdateListener;
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
@@ -62,6 +63,7 @@ public final class LiveCoreVelocityPlugin {
         loadMessages();
 
         CommandLoader.load(this);
+        new VelocityUpdateListener(server, this, 132482);
 
         int pluginId = 29435;
         Metrics metrics = metricsFactory.make(this, pluginId);
