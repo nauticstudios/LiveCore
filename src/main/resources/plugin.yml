@@ -2,14 +2,14 @@
 #                                                        (Nautic Studios @ (C) 2026)
 
 name: LiveCore
-version: 1.0.0
+version: '1.1.0'
 author: 'Senkex'
 
 api-version: 1.16
+folia-supported: true
 
 main: com.github.nautic.spigot.LiveCoreSpigotPlugin
 website: "https://github.com/nauticstudios/LiveCore"
-
 
 softdepend:
   - PlaceholderAPI

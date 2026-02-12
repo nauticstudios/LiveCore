@@ -125,7 +125,7 @@ syntax:
 messages:
   help:
     - ""
-    - "   &#FF2525&lLiveCore &#BDBDBD- Version: &#38FF351.0.0"
+    - "   &#FF2525&lLiveCore &#BDBDBD- Version: &#38FF351.1.0"
     - ""
     - "   &#FF8A8A/livecore reload &#BDBDBD- &#EAEAEAReload configuration"
     - "   &#FF8A8A/livecore platforms &#BDBDBD- &#EAEAEAList platforms"
